@@ -1,7 +1,7 @@
 version: "3"
 services:
   web:
-    image: nodejsmongodb:latest
+    image: apptest:latest
     deploy:
       replicas: 1
       resources:
@@ -24,9 +24,6 @@ services:
       - mongodata:/data/db
     networks:
       - webnet
-    deploy:
-      placement:
-        constraints: [node.role == manager]
 networks:
   webnet:
 volumes:

@@ -1,24 +1,26 @@
 const express = require('express');
+var mongodb = require('mongodb');
+
 const app = express();
-const mongoose = require('mongoose');
-
-
 const config = require('./db');
 const PORT = 3000;
 
-mongoose.connect(config.DB, function(err, db) {
-    if(err) {
-        console.log('database is not connected')
-    }
-    else {
-        console.log('connected!!')
-    }
-});
+const testAPI = require('./api/test')
 
-app.get('/', function(req, res) {
-    res.json({"hello": "world"});
-});
+var db;
+var coll;
 
-app.listen(PORT, function(){
+// Initialize connection once
+
+mongodb.MongoClient.connect(config.DB,{ useNewUrlParser: true }, function(err, client) {
+  if(err) throw err;
+  db = client.db('mytestingdb');
+
+   testAPI(app, {db:db});
+   console.log('database1', db);
+   app.listen(PORT, function(){
     console.log('Your node js server is running on PORT:',PORT);
 });
+});
+
+

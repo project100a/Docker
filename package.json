@@ -8,6 +8,6 @@
   },
   "dependencies": {
     "express": "4.13.4",
-	"mongoose": "4.4.10"
+	"mongodb": "^3.0.10"
   }
 }
