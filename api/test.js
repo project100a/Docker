@@ -1,10 +1,8 @@
 module.exports = (app, options) => {
   app.get('/', (req, res, next) => {
-	  const db = options.db;
-	    console.log('database2', db);
-	const coll=  db.collection('test');
+	const coll=  options.db.collection('test');
 	coll.find({}, function(err, docs) {
-		docs.each(function(err, doc) {
+		docs.forEach(function(err, doc) {
 		  if(doc) {
 			res.write(JSON.stringify(doc) + "\n");
 		  }
@@ -16,11 +14,10 @@ module.exports = (app, options) => {
   })
   
   app.post('/user', (req, res, next) => {
-	  const db = options.db;
-	  db.collection('test').insertOne({
-        Employeeid: 4,
-        EmployeeName: "NewEmployee"
+	  options.db.collection('test').insertOne({
+        Employeeid: req.body.id,
+        EmployeeName: req.body.name
     });
-      res.send(200)
+      res.sendStatus(200);
     })
 }

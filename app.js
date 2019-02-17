@@ -1,26 +1,23 @@
 const express = require('express');
-var mongodb = require('mongodb');
+const mongodb = require('mongodb');
+const bodyParser = require('body-parser');
 
-const app = express();
 const config = require('./db');
-const PORT = 3000;
-
 const testAPI = require('./api/test')
 
+const app = express();
+const PORT = 3000;
 var db;
-var coll;
 
-// Initialize connection once
+app.use(bodyParser.json());
 
 mongodb.MongoClient.connect(config.DB,{ useNewUrlParser: true }, function(err, client) {
-  if(err) throw err;
-  db = client.db('mytestingdb');
-
-   testAPI(app, {db:db});
-   console.log('database1', db);
-   app.listen(PORT, function(){
-    console.log('Your node js server is running on PORT:',PORT);
-});
+	if(err) throw err;
+	db = client.db('mytestingdb');
+	testAPI(app, {db:db});
+	app.listen(PORT, function(){
+		console.log('Your node js server is running on PORT:',PORT);
+	});
 });
 
 
