@@ -8,7 +8,7 @@ const testAPI = require('./api/test')
 const app = express();
 const PORT = 3000;
 var db;
-//for git testinng
+
 app.use(bodyParser.json());
 
 mongodb.MongoClient.connect(config.DB,{ useNewUrlParser: true }, function(err, client) {
