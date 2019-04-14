@@ -8,7 +8,7 @@ const testAPI = require('./api/test')
 const app = express();
 const PORT = 3000;
 var db;
-//test git resul
+//test
 //test comflict result
 //test git result
 app.use(bodyParser.json());
